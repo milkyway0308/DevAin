@@ -23,7 +23,7 @@ dependencies {
     implementation("com.knuddels:jtokkit:0.4.0")
     implementation("skywolf46:devain-version-full:1.3.2")
     implementation("skywolf46:devain-api-call:1.3.3")
-    implementation("skywolf46:devain-discord-jda:1.6.0")
+    implementation("skywolf46:devain-discord-jda:1.7.5")
     implementation("skywolf46:devain-configurator-yaml:1.3.1")
     implementation("org.scilab.forge:jlatexmath:1.0.7")
 }
