@@ -33,8 +33,7 @@ class ImageGPTCommand(
             options.addOption(OptionType.STRING, "model", "")
         }
         options.addOption(OptionType.STRING, "contents", "ChatGPT-3.5에게 질문할 내용입니다.", true)
-            .addOption(OptionType.ATTACHMENT, "image", "프롬프트 이미지를 업로드합니다.", true)
-
+            .addOption(OptionType.ATTACHMENT, "image", "프롬프트 이미지를 업로드합니다.", false)
             .addOption(
                 OptionType.NUMBER,
                 "temperature",
@@ -72,10 +71,11 @@ class ImageGPTCommand(
 
     override suspend fun onCommand(event: SlashCommandInteractionEvent) {
         event.defer { _, hook ->
-            val attachment = event.getOption("image")!!.asAttachment
-            if (!attachment.isImage) {
-                hook.sendMessage("이미지 파일만 업로드 가능합니다.").queue()
-                return@defer
+            val attachment = event.getOption("image")?.asAttachment?.apply {
+                if (!isImage) {
+                    hook.sendMessage("이미지 파일만 업로드 가능합니다.").queue()
+                    return@defer
+                }
             }
             val request = OpenAIGPTRequest(
                 model ?: event.getOption("model")!!.asString,
@@ -83,18 +83,24 @@ class ImageGPTCommand(
                     mutableListOf(
                         OpenAIGPTMessage(OpenAIGPTMessage.Role.ASSISTANT, it.toOption()),
                         OpenAIGPTMessage(
-                            OpenAIGPTMessage.Role.USER, listOf(
+                            OpenAIGPTMessage.Role.USER, mutableListOf(
                                 "text" to event.getOption("contents")!!.asString,
-                                "image_url" to event.getOption("image")!!.asAttachment.url
-                            )
+                            ).apply {
+                                attachment?.apply {
+                                    add("image_url" to attachment.url)
+                                }
+                            }
                         )
                     )
                 } ?: mutableListOf(
                     OpenAIGPTMessage(
-                        OpenAIGPTMessage.Role.USER, listOf(
+                        OpenAIGPTMessage.Role.USER, mutableListOf(
                             "text" to event.getOption("contents")!!.asString,
-                            "image_url" to event.getOption("image")!!.asAttachment.url
-                        )
+                        ).apply {
+                            event.getOption("image")?.apply {
+                                add("image_url" to this.asAttachment.url)
+                            }
+                        }
                     )
                 ),
                 1,

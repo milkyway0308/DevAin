@@ -4,6 +4,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import skywolf46.devain.configurator.APITokenElement
 import skywolf46.devain.configurator.fetchSharedDocument
+import skywolf46.devain.discord.DiscordWrapper
 import skywolf46.devain.platform.discord.DiscordBot
 import skywolf46.devain.platform.plugin.PluginModule
 

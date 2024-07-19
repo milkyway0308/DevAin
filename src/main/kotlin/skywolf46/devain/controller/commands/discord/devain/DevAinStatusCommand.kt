@@ -6,15 +6,15 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 import org.koin.core.component.get
 import org.koin.core.component.inject
+import skywolf46.devain.discord.command.EnhancedDiscordCommand
 import skywolf46.devain.platform.discord.DiscordBot
-import skywolf46.devain.platform.discord.ImprovedDiscordCommand
 import skywolf46.devain.platform.plugin.PluginManager
 import skywolf46.devain.util.TimeUtil
 import java.awt.Color
 import java.lang.management.ManagementFactory
 import javax.management.ObjectName
 
-class DevAinStatusCommand : ImprovedDiscordCommand("status", "DevAin 봇의 상태를 확인합니다.") {
+class DevAinStatusCommand : EnhancedDiscordCommand("status", "DevAin 봇의 상태를 확인합니다.") {
     private val startedOn = System.currentTimeMillis()
     private val pluginManager = get<PluginManager>()
     private val bot by inject<DiscordBot>()
@@ -40,7 +40,7 @@ class DevAinStatusCommand : ImprovedDiscordCommand("status", "DevAin 봇의 상�
                 (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()).toDouble() / 1024.0 / 1024.0
             EmbedBuilder()
 //                .setTitle("DevAin Standalone (${propertiesApiCall.certainly()["version"]})")
-                .setTitle("DevAin Standalone (1.3.0 - Radioactive Emmer Bread)")
+                .setTitle("DevAin Standalone (1.4.0 - Cement Flavored Baguette)")
                 .setColor(Color.CYAN)
                 .addField(
                     "업타임",

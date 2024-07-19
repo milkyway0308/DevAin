@@ -5,9 +5,9 @@ import arrow.core.None
 import arrow.core.Option
 import arrow.core.right
 import org.json.simple.JSONObject
-import skywolf46.devain.annotations.CommandParameter
-import skywolf46.devain.annotations.Required
 import skywolf46.devain.apicall.networking.Request
+import skywolf46.devain.discord.annotations.CommandParameter
+import skywolf46.devain.discord.annotations.Required
 import skywolf46.devain.util.putNotNull
 
 data class RPlusRequest(
@@ -50,6 +50,4 @@ data class RPlusRequest(
     enum class PromptTruncation {
         AUTO, AUTO_PRESERVE_ORDER, OFF
     }
-
-
 }

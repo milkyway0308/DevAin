@@ -18,6 +18,8 @@ import skywolf46.devain.controller.api.requests.openai.DallEAPICall
 import skywolf46.devain.controller.api.requests.openai.GPTCompletionAPICall
 import skywolf46.devain.controller.api.requests.openweather.OpenWeatherAPICall
 import skywolf46.devain.controller.api.requests.openweather.OpenWeatherForecastAPICall
+import skywolf46.devain.controller.commands.discord.etc.LatexCompileCommand
+import skywolf46.devain.controller.commands.discord.etc.ModalLatexCompileCommand
 import skywolf46.devain.controller.commands.discord.openai.*
 import skywolf46.devain.model.api.openai.completion.functions.*
 import skywolf46.devain.model.data.store.OpenAIFunctionStore
@@ -76,67 +78,79 @@ class OpenAIModule : PluginModule("OpenAI Integration") {
     private fun registerDefaultCommands() {
         discordBot.registerCommands(
             SimpleGPTCommand(
-                "ask",
+                "gpt3",
                 "GPT-3.5에게 질문합니다. GPT-4보다 비교적 빠릅니다. 세션을 보관하지 않으며, 명령어당 하나의 세션으로 인식합니다.",
                 "gpt-3.5-turbo-16k"
             ),
             SimpleGPTCommand(
-                "ask-more",
+                "gpt4",
                 "GPT-4에게 질문합니다. GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
                 "gpt-4"
             ),
-
-//            SimpleGPTCommand(
-//                "ask-fast",
-//                "GPT-4-0613에게 질문합니다. GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
-//                "gpt-4-0613"
-//            ),
             SimpleGPTCommand(
-                "ask-fast",
+                "gpt4-legacy",
+                "GPT-4-0613에게 질문합니다. GPT-4-0163은 2021년 8월까지의 데이터 제약을 가집니다.",
+                "gpt-4-0613"
+            ),
+
+            SimpleGPTCommand(
+                "gpt4-preview",
                 "GPT-4-0125에게 질문합니다. GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
                 "gpt-4-0125-preview"
             ),
 
-            SimpleGPTCommand(
-                "ask-fast-turbo",
-                "GPT-4-1106-preview(Turbo)에게 질문합니다. GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
-                "gpt-4-1106-preview"
+            ImageGPTCommand(
+                "gpt4-turbo",
+                "GPT-4-turbo에게 질문합니다. GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
+                "gpt-4-turbo"
             ),
 
 
             ImageGPTCommand(
-                "ask-vision",
-                "GPT-4-vision-preview에게 질문합니다. GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
-                "gpt-4-vision-preview"
+                "gpt4o",
+                "GPT-4O에게 질문합니다. GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
+                "gpt-4o"
             ),
-
             ImageGPTCommand(
-                "ask-vision-exp",
-                "GPT-4-1106-vision-preview에게 질문합니다. GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
-                "gpt-4-1106-vision-preview"
+                "gpt4o-mini",
+                "GPT-4O Mini에게 질문합니다. GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
+                "gpt-4o-mini"
             ),
 
+            LatexCompileCommand(),
+            ModalLatexCompileCommand()
 
-            )
+
+        )
     }
 
     private fun registerModalCommands() {
         discordBot.registerCommands(
             ModalGPTCommand(
-                "modal-gpt-fast",
+                "modal-gpt4-turbo",
+                "모달을 사용해 GPT-4O에게 질문합니다. GPT-0613은 빠르지만, GPT-4보다 덜 정확할 수 있습니다.",
+                "gpt-4-turbo"
+            ),
+            ModalGPTCommand(
+                "modal-gpt4o",
+                "모달을 사용해 GPT-4O에게 질문합니다. GPT-0613은 빠르지만, GPT-4보다 덜 정확할 수 있습니다.",
+                "gpt-4o"
+            ),
+            ModalGPTCommand(
+                "modal-gpt4-legacy",
                 "모달을 사용해 GPT-4에게 질문합니다. GPT-0613은 빠르지만, GPT-4보다 덜 정확할 수 있습니다.",
                 "gpt-4-0613"
             ),
 
             ModalGPTCommand(
-                "modal-gpt-more",
-                "모달을 사용해 GPt-4에게 질문합니다.  GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
+                "modal-gpt4",
+                "모달을 사용해 GPT-4에게 질문합니다.  GPT-4는 느리지만, 조금 더 논리적인 답변을 기대할 수 있습니다.",
                 "gpt-4"
             ),
 
 
             ModalGPTCommand(
-                "modal-gpt",
+                "modal-gpt3",
                 "모달을 사용해 GPT-3.5에게 질문합니다. GPT-3.5는 빠르지만, GPT-4보다 부정확합니다.",
                 "gpt-3.5-turbo-16k"
             )
@@ -145,7 +159,7 @@ class OpenAIModule : PluginModule("OpenAI Integration") {
 
     private fun registerTestFeatureCommands() {
         discordBot.registerCommands(
-            TestGPTCommand("test-gpt", "펑션을 사용하는 실험적인 GPT 명령입니다.", "gpt-3.5-turbo-16k"),
+            TestGPTCommand("test-gpt", "펑션을 사용하는 실험적인 GPT 명령입니다.", "gpt-4o"),
             ArxivGPTCommand("arxiv-gpt", "ArXiv 검색을 사용하는 실험적인 GPT 명령입니다.", "gpt-4-turbo"),
             DallEGenerationCommand(),
         )

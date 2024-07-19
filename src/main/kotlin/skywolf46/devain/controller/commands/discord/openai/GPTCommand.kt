@@ -3,17 +3,18 @@ package skywolf46.devain.controller.commands.discord.openai
 import arrow.core.toOption
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.MessageEmbed
+import skywolf46.devain.discord.command.EnhancedDiscordCommand
+import skywolf46.devain.discord.util.EmbedConstructor
 import skywolf46.devain.model.api.openai.completion.OpenAIGPTMessage
 import skywolf46.devain.model.api.openai.completion.OpenAIGPTRequest
 import skywolf46.devain.model.api.openai.completion.OpenAIGPTResponse
-import skywolf46.devain.platform.discord.ImprovedDiscordCommand
 import skywolf46.devain.util.TimeUtil
 import java.awt.Color
 import java.text.DecimalFormat
 import kotlin.math.round
 
 abstract class GPTCommand(command: String, description: String) :
-    ImprovedDiscordCommand(command, description, command.toOption()) {
+    EnhancedDiscordCommand(command, description, command.toOption()) {
 
     companion object {
         const val DEFAULT_MODEL = "gpt-4"

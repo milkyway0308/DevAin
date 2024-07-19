@@ -4,9 +4,9 @@ import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
 import org.json.simple.JSONObject
-import skywolf46.devain.annotations.CommandParameter
-import skywolf46.devain.annotations.Required
 import skywolf46.devain.apicall.networking.Request
+import skywolf46.devain.discord.annotations.CommandParameter
+import skywolf46.devain.discord.annotations.Required
 import skywolf46.devain.util.putNotNull
 import skywolf46.devain.util.putNotNullOrFatal
 

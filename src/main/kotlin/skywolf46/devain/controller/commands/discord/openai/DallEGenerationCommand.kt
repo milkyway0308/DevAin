@@ -8,11 +8,11 @@ import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 import org.koin.core.component.inject
 import skywolf46.devain.controller.api.requests.openai.DallEAPICall
+import skywolf46.devain.discord.command.EnhancedDiscordCommand
 import skywolf46.devain.model.api.openai.dalle.DallERequest
-import skywolf46.devain.platform.discord.ImprovedDiscordCommand
 import java.awt.Color
 
-class DallEGenerationCommand : ImprovedDiscordCommand("dalle", "OpenAI DallE를 사용해 이미지를 생성합니다.", "dalle".toOption()) {
+class DallEGenerationCommand : EnhancedDiscordCommand("dalle", "OpenAI DallE를 사용해 이미지를 생성합니다.", "dalle".toOption()) {
     private val apiCall by inject<DallEAPICall>()
     override fun modifyCommandData(options: SlashCommandData) {
         options.addOption(

@@ -22,4 +22,16 @@ class GenerationResultTextBuilder(val title: String, val content: String?, val m
         }
     }
 
+    fun asText(contentPrefix: String): String {
+        val text = StringBuilder()
+        text.append(title)
+        for (line in metadata) {
+            for ((k, v) in line) {
+                text.append("└ $k: $v\n")
+            }
+        }
+        if (content != null)
+            text.append(contentPrefix).append("\n").append(content).append("\n")
+        return text.toString()
+    }
 }

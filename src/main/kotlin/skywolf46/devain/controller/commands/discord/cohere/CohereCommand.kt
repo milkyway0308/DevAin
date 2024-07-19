@@ -2,13 +2,14 @@ package skywolf46.devain.controller.commands.discord.cohere
 
 import org.koin.core.component.inject
 import skywolf46.devain.controller.api.requests.cohere.CohereGenerationAPICall
+import skywolf46.devain.discord.command.ReflectedDiscordCommand
+import skywolf46.devain.discord.data.CommandEvent
 import skywolf46.devain.model.api.cohere.CohereGenerationRequest
-import skywolf46.devain.platform.discord.AnnotatedParameterDiscordCommand
 import skywolf46.devain.util.GenerationResultTextBuilder
 import skywolf46.devain.util.TimeUtil
 
 class CohereCommand :
-    AnnotatedParameterDiscordCommand<CohereGenerationRequest>("cohere", CohereGenerationRequest::class) {
+    ReflectedDiscordCommand<CohereGenerationRequest>("cohere", CohereGenerationRequest::class) {
     private val apiCall by inject<CohereGenerationAPICall>()
 
     override suspend fun onParameterCommand(event: CommandEvent, data: CohereGenerationRequest) {

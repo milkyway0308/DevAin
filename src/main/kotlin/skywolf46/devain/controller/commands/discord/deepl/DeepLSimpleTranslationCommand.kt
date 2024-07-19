@@ -6,10 +6,10 @@ import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 import org.koin.core.component.get
 import skywolf46.devain.controller.api.requests.deepl.DeepLTranslationAPICall
+import skywolf46.devain.discord.command.EnhancedDiscordCommand
 import skywolf46.devain.model.api.deepl.translation.DeepLTranslateRequest
-import skywolf46.devain.platform.discord.ImprovedDiscordCommand
 
-class DeepLSimpleTranslationCommand : ImprovedDiscordCommand("deepl-simple", "DeepL 번역 API를 사용해 주어진 텍스트를 번역합니다.") {
+class DeepLSimpleTranslationCommand : EnhancedDiscordCommand("deepl-simple", "DeepL 번역 API를 사용해 주어진 텍스트를 번역합니다.") {
     private val allowedTranslation = mapOf("ko" to "Korean", "en" to "English", "jp" to "Japanese", "cn" to "Chinese")
     private val apiCall = get<DeepLTranslationAPICall>()
 
